@@ -1,0 +1,10 @@
+percurso = {"Salvador" : {"TempoL":346, "Destinos":["BR-324"], "TempoD":[79]},
+            "BR-324" : {"TempoL":327, "Destinos":["Feira de Santana", "Sapeaçu"], "TempoD":[28, 64]},
+            "Sapeaçu": {"TempoL":265, "Destinos":["Ipueira"], "TempoD":[63]},
+            "Feira de Santana": {"TempoL":260, "Destinos":["Ipirá", "Ipueira"], "TempoD":[81, 65]},
+            "Ipirá": {"TempoL":180, "Destinos":["Itaberaba"], "TempoD":[65]},
+            "Ipueira": {"TempoL":200, "Destinos":["Itaberaba", "Iaçu"], "TempoD":[82, 68]},
+            "Iaçu": {"TempoL":125, "Destinos":["Itaberaba", "Crispim"], "TempoD":[29, 62]},
+            "Crispim":{"TempoL":150, "Destinos":["Boa Vista do Tupim"], "TempoD":[55]},
+            "Boa Vista do Tupim":{"TempoL":180, "Destinos":["Lençois"], "TempoD":[120]},
+            "Itaberaba":{"TempoL":120, "Destinos":["Lençois"], "TempoD":[125]}}
