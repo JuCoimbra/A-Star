@@ -65,16 +65,7 @@ export class Graph {
         }
 
     }
-    private setFCosts = () => {
-        for(const node of this.#adjencyList){
-            const [key,nodeValue] = node;
-
-
-
-
-        }
-    }
-    
+   
     // Singleton 
     public static getInstance = () => {
         if(!this.#instance) {
@@ -122,17 +113,37 @@ export class Graph {
 
         this.setHeuristics( heuristics );
         const openQueue = [ startNode ];
-        const closedQueue = [];
+        const closedQueue:GraphNode[] = [];
 
         while(openQueue.length > 0) {
             openQueue.sort((nodeA,nodeB) => nodeA.fCost - nodeB.fCost); 
             const path = openQueue.shift();
 
-            const neighbors = this.#adjencyList
-            
-            
+            if(path && path.name === finishNode.name) {
+                console.log('Found ',path.name);
+                break;
+            }
 
+            if(!path) throw new Error('No more elements on the openQueue')
+
+            const neighbors = this.#adjencyList.get(path.name);
+
+            if(!neighbors) continue; //?
+
+            for( const neighbor of neighbors ) {
+
+                if(openQueue.includes(neighbor.node) || closedQueue.includes( neighbor.node )) {
+                    continue;
+                }
+
+                neighbor.node.setFcost( neighbor.weight + neighbor.node.heuristc );
+                openQueue.push( neighbor.node );
+            }
+
+            closedQueue.push( path );
         }
-
+ 
+        console.log('openQueue: ',openQueue)
+        console.log('closedQueue: ',closedQueue)
     }
 }
