@@ -1,3 +1,5 @@
+from operator import itemgetter as itemgetter
+
 percurso = {"Salvador" : {"TempoL":346, "Destinos":["BR-324"], "TempoD":[79], "f": 0, "Previous":"null"},
             "BR-324" : {"TempoL":327, "Destinos":["Feira de Santana", "Sapeaçu"], "TempoD":[28, 64], "f": 0, "Previous":"null"},
             "Sapeaçu": {"TempoL":265, "Destinos":["Ipueira"], "TempoD":[63], "f": 0, "Previous":"null"},
@@ -26,9 +28,9 @@ def addAcessar(atuVertex, acessar):
         if (percurso[vertex]["f"] == 0) or (percurso[vertex]["f"] > f):
             percurso[vertex]["f"] = f
         
-        acessar = acessar.append(vertex)
+        acessar = acessar.append(percurso[vertex])
         
-    return acessar
+    return sorted(acessar, key = itemgetter("f"))
 
 def aStar(origin, destino):
     acessados = []
