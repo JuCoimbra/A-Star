@@ -25,7 +25,7 @@ def antPercu(vertex, antVertex):
 def addAcessar(atuVertex, acessar):
     for vertex in percurso[atuVertex]["Destinos"]:
         f = antPercu(vertex, percurso[vertex]["Previous"])
-        
+
         if (percurso[vertex]["f"] == 0) or (percurso[vertex]["f"] > f):
             percurso[vertex]["f"] = f
             percurso[vertex]["Previous"] = atuVertex
@@ -34,9 +34,30 @@ def addAcessar(atuVertex, acessar):
         
     return sorted(acessar, key = itemgetter("f"))
 
+#Monta o caminho da origem ao destino
+def way(vertex, finalWay):
+    if vertex != "Salvador":
+        finalWay = finalWay.append(vertex)
+        return way(percurso[vertex]["Previous"], finalWay)
+    else:
+        finalWay.append("Salvador")
+        return finalWay.reverse()
+
+
 def aStar(origin, destino):
     acessados = []
     acessar = [origin]
+
+    percurso[origin]["f"] = antPercu(origin, "null")
+
+    for vertex in acessar:
+        acessar = addAcessar(vertex, acessar)
+        acessados = acessados.append(vertex)
+
+        if vertex == destino:
+            finalWay = way(vertex, finalWay)
+
+    
 
     
 
