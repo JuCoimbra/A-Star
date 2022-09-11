@@ -13,7 +13,7 @@ percurso = {"Salvador" : {"TempoL":346, "Destinos":["BR-324"], "TempoD":[79], "f
 
 #Calcula o valor f (TempoL + Heuristica) para o nó passado
 def antPercu(vertex, antVertex):
-    if vertex !=  'Salvador':
+    if vertex != 'Salvador':
         indexAntn = percurso[vertex]["Destinos"].index(antVertex)
         f = percurso[vertex]["TempoD"][indexAntn] + antPercu(percurso[vertex]["Previous"], vertex)
         return f
@@ -25,8 +25,10 @@ def antPercu(vertex, antVertex):
 def addAcessar(atuVertex, acessar):
     for vertex in percurso[atuVertex]["Destinos"]:
         f = antPercu(vertex, percurso[vertex]["Previous"])
+        
         if (percurso[vertex]["f"] == 0) or (percurso[vertex]["f"] > f):
             percurso[vertex]["f"] = f
+            percurso[vertex]["Previous"] = atuVertex
         
         acessar = acessar.append(percurso[vertex])
         
