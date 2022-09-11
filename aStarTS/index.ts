@@ -22,7 +22,7 @@ graphEdges.forEach(( edge ) => {
 // graph.printGraph()
 
 
-graph.runAstar();
+graph.runAstar('Salvador','Lençóis');
 
 graph.printGraph();
 // graph.printGraph();

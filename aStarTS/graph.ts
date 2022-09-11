@@ -15,11 +15,16 @@ export type EdgeConstructor = { link: [string,string], weight:number};
 export class GraphNode {
     name: string;
     heuristc: number;
-
+    fCost:number;
 
     constructor({name,heuristc = 0}) {
         this.name = name;
         this.heuristc = heuristc;
+        this.fCost = heuristc;
+    }
+    
+    setFcost(f:number){
+        this.fCost = f;
     }
 
 }
@@ -60,9 +65,16 @@ export class Graph {
         }
 
     }
-    private calcFcost = (weightTotal) => {
+    private setFCosts = () => {
+        for(const node of this.#adjencyList){
+            const [key,nodeValue] = node;
 
+
+
+
+        }
     }
+    
     // Singleton 
     public static getInstance = () => {
         if(!this.#instance) {
@@ -99,12 +111,28 @@ export class Graph {
     }
 
     public printGraph (){
-        return this.#adjencyList;
+        return console.log(this.#adjencyList);
     }
-    public runAstar (heuristics = h_to_lencois) {
+    public runAstar (startNodeName:string,finishNodeName:string,heuristics = h_to_lencois) {
+        const startNode = this.#nodes[startNodeName] ?? undefined;
+        const finishNode = this.#nodes[finishNodeName] ?? undefined;
+
+        if(!startNode) throw new Error(`No Node with name ${startNodeName}`);
+        if(!finishNode) throw new Error(`No Node with name ${finishNodeName}`);
+
         this.setHeuristics( heuristics );
+        const openQueue = [ startNode ];
+        const closedQueue = [];
 
+        while(openQueue.length > 0) {
+            openQueue.sort((nodeA,nodeB) => nodeA.fCost - nodeB.fCost); 
+            const path = openQueue.shift();
 
+            const neighbors = this.#adjencyList
+            
+            
+
+        }
 
     }
 }
