@@ -18,12 +18,17 @@ def antPercu(vertex, antVertex):
     else:
         return percurso[vertex]["TempoL"]
 
+
 #Adiciona a lista acessar(lista "open" no slide) os nós vizinhos ao atual, sempre atualizando o estado f deles.
 def addAcessar(atuVertex, acessar):
     for vertex in percurso[atuVertex]["Destinos"]:
+        f = antPercu(vertex, percurso[vertex]["Previous"])
+        if (percurso[vertex]["f"] == 0) or (percurso[vertex]["f"] > f):
+            percurso[vertex]["f"] = f
+        
         acessar = acessar.append(vertex)
-        percurso[vertex]["f"] = antPercu(vertex, percurso[vertex]["Previous"])
-        return acessar
+        
+    return acessar
 
 def aStar(origin, destino):
     acessados = []
