@@ -77,7 +77,7 @@ export class Graph {
             return new Graph();
         }
         
-        throw new Error(`Already a Graph Instance`);
+        throw console.log(`Already a Graph Instance`);
     }
     public addNode(node: GraphNode) {
         this.#nodes[node.name] = node;
