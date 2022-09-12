@@ -16,15 +16,20 @@ export class GraphNode {
     name: string;
     heuristc: number;
     fCost:number;
+    cameFrom: GraphNode | undefined;
 
     constructor({name,heuristc = 0}) {
         this.name = name;
         this.heuristc = heuristc;
         this.fCost = heuristc;
+        this.cameFrom = undefined;
     }
     
     setFcost(f:number){
         this.fCost = f;
+    }
+    setCameFrom(node:GraphNode) {
+        this.cameFrom = node;
     }
 
 }
@@ -120,7 +125,16 @@ export class Graph {
             const path = openQueue.shift();
 
             if(path && path.name === finishNode.name) {
-                console.log('Found ',path.name);
+                console.log(`Found ${path.name}!!`);
+
+                let tempNode = path;
+                const pathFollowed:string[] = [  ];
+                while(tempNode.cameFrom !== undefined){
+                    pathFollowed.push(tempNode.name);
+                    tempNode = tempNode.cameFrom;
+                }
+                pathFollowed.push( startNode.name );
+                console.log(`Path Followed: `, pathFollowed.reverse());
                 break;
             }
 
@@ -130,20 +144,21 @@ export class Graph {
 
             if(!neighbors) continue; //?
 
-            for( const neighbor of neighbors ) {
+            for( const {node,weight} of neighbors ) {
 
-                if(openQueue.includes(neighbor.node) || closedQueue.includes( neighbor.node )) {
+                if(openQueue.includes( node ) || closedQueue.includes( node )) {
                     continue;
                 }
 
-                neighbor.node.setFcost( neighbor.weight + neighbor.node.heuristc );
-                openQueue.push( neighbor.node );
+                node.setFcost( weight + node.heuristc );
+                node.cameFrom = path;
+                openQueue.push( node );
             }
 
             closedQueue.push( path );
         }
  
-        console.log('openQueue: ',openQueue)
-        console.log('closedQueue: ',closedQueue)
+        // console.log('openQueue: ',openQueue)
+        // console.log('closedQueue: ',closedQueue)
     }
 }
